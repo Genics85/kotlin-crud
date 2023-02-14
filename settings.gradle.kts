@@ -1,0 +1,1 @@
+rootProject.name = "com.genics85.first-kotlin-api"
