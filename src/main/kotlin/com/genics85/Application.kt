@@ -1,5 +1,6 @@
 package com.genics85
 
+import com.genics85.dao.DatabaseFactory
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import com.genics85.plugins.*
@@ -14,6 +15,7 @@ fun main() {
         install(ContentNegotiation){
             json()
         }
+        DatabaseFactory.connect()
         contactUsRoute()
         homeRouting()
     }
