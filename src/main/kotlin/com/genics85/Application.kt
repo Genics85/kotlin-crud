@@ -17,6 +17,7 @@ fun main() {
         }
         DatabaseFactory.connect()
         contactUsRoute()
+        dbRouting()
         homeRouting()
     }
         .start(wait = true)

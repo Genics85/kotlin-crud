@@ -1,29 +1,34 @@
 package com.genics85.dao
 
-import com.genics85.database.Articles
+
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import org.jetbrains.exposed.sql.Database
-import org.jetbrains.exposed.sql.SchemaUtils
-import org.jetbrains.exposed.sql.transactions.transaction
-import javax.sql.DataSource
+import org.slf4j.LoggerFactory
 
-public object DatabaseFactory {
+object DatabaseFactory {
+    private val log = LoggerFactory.getLogger(this::class.java)
 
-    var db: DataSource=connect()
+    fun connect() {
+        log.info("Initialising database")
+        val pool = hikari()
+        Database.connect(pool)
+        //runFlyway(pool)
+    }
 
-    fun connect():DataSource{
-        val config=HikariConfig()
-        config.jdbcUrl = "jdbc:mysql://localhost:3306/tut"
-        config.username = "root"
-        config.password = "TechyGenics85"
-        config.driverClassName = "com.mysql.jdbc.Driver"
+    private fun hikari(): HikariDataSource {
+        val config = HikariConfig().apply {
 
-        transaction(Database.connect(db)){
-            SchemaUtils.create(Articles)
+            this.jdbcUrl = "jdbc:mysql://127.0.0.1:3306/tut"
+            this.driverClassName = "com.mysql.cj.jdbc.Driver"
+            this.username = "root"
+            this.password = "TechyGenics85"
         }
 
+        config.validate()
         return HikariDataSource(config)
     }
+
+
 
 }

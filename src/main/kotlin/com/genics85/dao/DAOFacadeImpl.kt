@@ -2,10 +2,8 @@ package com.genics85.dao
 
 import com.genics85.database.Article
 import com.genics85.database.Articles
-import org.jetbrains.exposed.sql.ResultRow
+import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
-import org.jetbrains.exposed.sql.select
-import org.jetbrains.exposed.sql.selectAll
 
 class DAOFacadeImpl : DAOFacade {
     private fun resultRowToArticle(row: ResultRow)=Article(
@@ -26,14 +24,20 @@ class DAOFacadeImpl : DAOFacade {
     }
 
     override fun addNewArticle(title: String, body: String): Article? {
-        TODO("Not yet implemented")
+       return Articles.insert{
+            it[Articles.title]=title
+            it[Articles.body]=body
+        }.resultedValues?.singleOrNull()?.let(::resultRowToArticle)
     }
 
     override fun editArticle(id: Int, body: String, title: String): Boolean {
-        TODO("Not yet implemented")
+        return Articles.update ({Articles.id eq id}){
+            it[Articles.title]=title
+            it[Articles.body]=body
+        }>0
     }
 
     override fun deleteArticle(id: Int): Boolean {
-        TODO("Not yet implemented")
+       return Articles.deleteWhere{Articles.id eq id} > 1
     }
 }

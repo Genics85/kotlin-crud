@@ -33,4 +33,5 @@ dependencies {
     implementation("org.jetbrains.exposed:exposed-core:0.41.1")
     implementation("com.mysql:mysql-connector-j:8.0.32")
     implementation("com.zaxxer:HikariCP:5.0.1")
+
 }
