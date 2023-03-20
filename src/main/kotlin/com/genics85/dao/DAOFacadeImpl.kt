@@ -4,6 +4,7 @@ import com.genics85.database.Article
 import com.genics85.database.Articles
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
+import org.jetbrains.exposed.sql.transactions.transaction
 
 class DAOFacadeImpl : DAOFacade {
     private fun resultRowToArticle(row: ResultRow)=Article(
@@ -17,14 +18,15 @@ class DAOFacadeImpl : DAOFacade {
 
     }
 
-    override fun article(id: Int): Article? {
-        return Articles.select( Articles.id eq id )
+    override fun article(id: Int): Article? = transaction {
+         Articles.select( Articles.id eq id )
             .map(::resultRowToArticle)
             .singleOrNull()
     }
 
-    override fun addNewArticle(title: String, body: String): Article? {
-       return Articles.insert{
+    override fun addNewArticle(title: String, body: String): Article? = transaction{
+
+        Articles.insert{
             it[Articles.title]=title
             it[Articles.body]=body
         }.resultedValues?.singleOrNull()?.let(::resultRowToArticle)

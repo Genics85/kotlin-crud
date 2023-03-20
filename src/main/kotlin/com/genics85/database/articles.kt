@@ -8,7 +8,6 @@ object Articles:Table(){
     val id=integer("id").autoIncrement()
     val title=varchar("title",128)
     val body=varchar ("body",2048)
-    val something=varchar("something",256)
 
     override val primaryKey=PrimaryKey(id)
 }
