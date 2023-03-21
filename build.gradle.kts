@@ -32,7 +32,7 @@ dependencies {
     implementation("io.ktor:ktor-serialization-kotlinx-json:$ktor_version")
     implementation("org.jetbrains.exposed:exposed-core:0.41.1")
     implementation("com.zaxxer:HikariCP:5.0.1")
-    implementation("com.h2database:h2:2.1.214")
+    implementation("com.mysql:mysql-connector-j:8.0.32")
     implementation("org.jetbrains.exposed:exposed-jdbc:0.41.1")
 
 }

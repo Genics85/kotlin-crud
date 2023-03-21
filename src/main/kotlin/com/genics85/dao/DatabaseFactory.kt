@@ -1,9 +1,11 @@
 package com.genics85.dao
 
 
+import com.genics85.database.Articles
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import org.jetbrains.exposed.sql.Database
+import org.jetbrains.exposed.sql.SchemaUtils
 import org.slf4j.LoggerFactory
 
 object DatabaseFactory {
@@ -11,10 +13,11 @@ object DatabaseFactory {
 
     private fun hikari(): HikariDataSource {
         val config = HikariConfig().apply {
-            this.jdbcUrl = "jdbc:h2:mem:~/test"
-            this.driverClassName = "org.h2.Driver"
-            this.username = "sa"
-            this.password = ""
+            this.jdbcUrl = "jdbc:mysql://localhost:3306/tut"
+            this.driverClassName = "com.mysql.cj.jdbc.Driver"
+            this.username = "root"
+            this.password = "TechyGenics85"
+            this.isAutoCommit=true
         }
         config.validate()
         return HikariDataSource(config)
@@ -23,6 +26,7 @@ object DatabaseFactory {
         log.info("Initialising database")
         val pool = hikari()
         Database.connect(pool)
+        SchemaUtils.create(Articles)
         //runFlyway(pool)
     }
 

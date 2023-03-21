@@ -21,6 +21,10 @@ fun Application.dbRouting(){
            var news = dbFun.addNewArticle("Something great","This is not even a new anymore")
             call.respond(news.toString())
         }
+        get("/allArticles"){
+            var articles=dbFun.allArticles()
+            call.respond("successfully got all articles")
+        }
         get("/article"){
             var art=dbFun.article(1)
             call.respond(art.toString())

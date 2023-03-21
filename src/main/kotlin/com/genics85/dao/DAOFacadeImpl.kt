@@ -13,8 +13,8 @@ class DAOFacadeImpl : DAOFacade {
         body=row[Articles.body]
     )
 
-    override fun allArticles(): List<Article>  {
-        return Articles.selectAll().map(::resultRowToArticle)
+    override fun allArticles(): List<Article>  =transaction{
+         Articles.selectAll().map(::resultRowToArticle)
 
     }
 
