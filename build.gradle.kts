@@ -34,5 +34,6 @@ dependencies {
     implementation("com.zaxxer:HikariCP:5.0.1")
     implementation("com.mysql:mysql-connector-j:8.0.32")
     implementation("org.jetbrains.exposed:exposed-jdbc:0.41.1")
+    implementation("org.kodein.di:kodein-di:7.18.0")
 
 }
