@@ -1,5 +1,6 @@
 package com.genics85
 
+import com.genics85.config.configureDI
 import com.genics85.dao.DatabaseFactory
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
@@ -17,6 +18,7 @@ fun main() {
         }
         DatabaseFactory.connect()
         contactUsRoute()
+        configureDI()
         dbRouting()
         homeRouting()
     }

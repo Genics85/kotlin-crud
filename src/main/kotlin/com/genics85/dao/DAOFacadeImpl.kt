@@ -8,9 +8,9 @@ import org.jetbrains.exposed.sql.transactions.transaction
 
 class DAOFacadeImpl : DAOFacade {
     private fun resultRowToArticle(row: ResultRow)=Article(
-        id=row[Articles.id],
-        title=row[Articles.title],
-        body=row[Articles.body]
+        id =row[Articles.id],
+        title =row[Articles.title],
+        body =row[Articles.body]
     )
 
     override fun allArticles(): List<Article>  =transaction{

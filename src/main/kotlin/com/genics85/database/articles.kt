@@ -5,7 +5,7 @@ import org.jetbrains.exposed.sql.Column
 import org.jetbrains.exposed.sql.Table
 
 @Serializable
-data class Article(val id:Int,val title:String,val body:String);
+data class Article(val id: Int, val title:String, val body:String);
 
 object Articles:Table(name="articles"){
     val id:Column<Int> = integer("id").autoIncrement().uniqueIndex()
