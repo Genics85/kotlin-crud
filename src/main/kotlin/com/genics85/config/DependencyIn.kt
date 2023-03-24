@@ -8,9 +8,8 @@ import org.kodein.di.DI
 
 fun Application.configureDI(){
     DI{
-        bindSingleton{ ArticleControllerImpl(di)
+        bindSingleton{ ArticleControllerImpl(di)}
         bindSingleton{DAOFacadeImpl()}
-        }
     }
 }
 
