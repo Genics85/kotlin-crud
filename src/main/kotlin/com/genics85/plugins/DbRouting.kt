@@ -12,7 +12,6 @@ fun Application.dbRouting(){
     val log = LoggerFactory.getLogger(this::class.java)
 
     var dbFun = DAOFacadeImpl()
-    var artFun = ArticleControllerImpl(DI)
 
     routing {
         get("/db"){
