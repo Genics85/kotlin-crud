@@ -1,5 +1,6 @@
 package com.genics85.controllers
 
+import com.genics85.core.APIResponse
 import com.genics85.dao.DAOFacadeImpl
 import com.genics85.database.Article
 import org.kodein.di.DI
@@ -9,12 +10,12 @@ import org.kodein.di.instance
 class ArticleControllerImpl(override val di: DI) :ArticleController, DIAware {
 
     private val daoFacade: DAOFacadeImpl by di.instance()
-
     /**
      * function to create an article in the database
      * */
-    override fun createArticle(title: String, body: String): Article? {
-        return daoFacade.addNewArticle(title,body)
+    override fun createArticle(title: String, body: String): APIResponse<Article?> {
+        val newArt:Article? = daoFacade.addNewArticle(title,body)
+        return APIResponse("U201","200","Adding new article success", listOf(newArt))
     }
 
     /**

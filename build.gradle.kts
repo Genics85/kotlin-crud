@@ -37,6 +37,7 @@ dependencies {
     implementation("org.kodein.di:kodein-di-jvm:7.18.0")
     testImplementation(kotlin("test"))
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
+    testImplementation("io.mockk:mockk:1.13.4")
 }
 
 tasks.test {

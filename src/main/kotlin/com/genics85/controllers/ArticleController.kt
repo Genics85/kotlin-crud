@@ -1,5 +1,6 @@
 package com.genics85.controllers
 
+import com.genics85.core.APIResponse
 import com.genics85.database.Article
 
 interface ArticleController {
@@ -7,7 +8,7 @@ interface ArticleController {
     /**
      * function to create an article in the database
     * */
-    fun createArticle(title:String,body:String):Article?
+    fun createArticle(title:String,body:String): APIResponse<Article?>
 
     /**
      * function to delete specific article in the database
