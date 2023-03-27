@@ -13,7 +13,7 @@ import org.junit.jupiter.api.TestInstance
 import org.kodein.di.DI
 import org.kodein.di.bindSingleton
 import uk.co.jemos.podam.api.PodamFactoryImpl
-import java.util.stream.IntStream.range
+import kotlin.random.Random
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 internal class DAOFacadeImplTest {
@@ -88,8 +88,15 @@ internal class DAOFacadeImplTest {
             assertThat(expected.code).isEqualTo("201")
         }
     }
-//
-//    @Test
-//    fun deleteArticle() {
-//    }
+
+    @Test
+    fun deleteArticle() {
+        //GIVEN
+        val id= Random.nextInt(1,5);
+        every { service.deleteArticle(any()) } returns true
+        //WHEN
+        val expected=underTest.deleteArticle(id)
+        //THEN
+        assertThat(expected.code).isEqualTo("201")
+    }
 }
