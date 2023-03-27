@@ -1,7 +1,7 @@
 package com.genics85.controllers
 
 import com.genics85.core.APIResponse
-import com.genics85.database.Article
+import com.genics85.models.Article
 
 interface ArticleController {
     /**

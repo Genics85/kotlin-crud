@@ -38,6 +38,8 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
     testImplementation("io.mockk:mockk:1.13.4")
     testImplementation("uk.co.jemos.podam:podam:7.2.11.RELEASE")
+    testImplementation("org.assertj:assertj-core:3.24.2")
+
 }
 
 tasks.test {

@@ -2,7 +2,7 @@ package com.genics85.controllers
 
 import com.genics85.core.APIResponse
 import com.genics85.dao.DAOFacade
-import com.genics85.database.Article
+import com.genics85.models.Article
 import org.kodein.di.DI
 import org.kodein.di.DIAware
 import org.kodein.di.instance
@@ -36,11 +36,12 @@ class ArticleControllerImpl(override val di: DI) :ArticleController, DIAware {
      * */
     override fun createArticle(title: String, body: String): APIResponse<Article?> {
         val newArt:APIResponse<Article?> = try{
-            val articleOne:Article?=daoFacade.addNewArticle(title,body)
-            if(articleOne != null){
-                APIResponse("10","201","Article was created with success",listOf(articleOne))
+            val tempArt=Article(null,title,body)
+          val created:Int=daoFacade.addNewArticle(tempArt)
+            if(created==1){
+                APIResponse("10","201","Article created with success",listOf())
             }else{
-                APIResponse("10","200","Article creation failed",listOf())
+                APIResponse("10","200","failed while creating article", listOf())
             }
         }catch (se: SQLException){
             log.error("Article creation failed on server")
