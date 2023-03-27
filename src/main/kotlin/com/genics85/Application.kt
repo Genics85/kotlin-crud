@@ -17,7 +17,6 @@ fun main() {
             json()
         }
         DatabaseFactory.connect()
-        contactUsRoute()
         configureDI()
         dbRouting()
         homeRouting()
