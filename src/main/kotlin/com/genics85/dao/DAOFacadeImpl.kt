@@ -14,8 +14,7 @@ class DAOFacadeImpl : DAOFacade {
     )
 
     override fun allArticles(): List<Article>  =transaction{
-         Articles.selectAll().map(::resultRowToArticle)
-
+        Articles.selectAll().map(::resultRowToArticle).toList()
     }
 
     override fun article(id: Int): Article? = transaction {
@@ -25,18 +24,17 @@ class DAOFacadeImpl : DAOFacade {
     }
 
     override fun addNewArticle(title: String, body: String): Article? = transaction{
-
         Articles.insert{
             it[Articles.title]=title
             it[Articles.body]=body
         }.resultedValues?.singleOrNull()?.let(::resultRowToArticle)
     }
 
-    override fun editArticle(id: Int, body: String, title: String): Boolean {
+    override fun editArticle(id: Int, body: String, title: String): Int {
         return Articles.update ({Articles.id eq id}){
             it[Articles.title]=title
             it[Articles.body]=body
-        }>0
+        }
     }
 
     override fun deleteArticle(id: Int): Boolean {

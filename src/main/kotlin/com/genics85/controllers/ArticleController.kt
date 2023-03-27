@@ -4,6 +4,9 @@ import com.genics85.core.APIResponse
 import com.genics85.database.Article
 
 interface ArticleController {
+    /**
+     * functions to get all articles in databases**/
+    fun getArticles():APIResponse<List<Article>>
 
     /**
      * function to create an article in the database
@@ -13,10 +16,10 @@ interface ArticleController {
     /**
      * function to delete specific article in the database
      * **/
-    fun deleteArticle(id:Int):Int
+    fun deleteArticle(id:Int):APIResponse<Boolean>
 
     /**
      * this function is to delete specific article from the database
      * **/
-    fun editArticle(id:Int,title: String,body: String):Boolean
+    fun editArticle(id:Int,title: String,body: String):APIResponse<Int>
 }

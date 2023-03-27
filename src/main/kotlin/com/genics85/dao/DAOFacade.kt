@@ -6,6 +6,6 @@ interface DAOFacade {
     fun allArticles():List<Article>
     fun article(id:Int):Article? 
     fun addNewArticle(title:String,body:String):Article?
-    fun editArticle(id:Int,body:String,title: String):Boolean
+    fun editArticle(id:Int,body:String,title: String):Int
     fun deleteArticle(id:Int):Boolean
 }
