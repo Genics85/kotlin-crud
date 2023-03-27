@@ -13,6 +13,7 @@ import org.junit.jupiter.api.TestInstance
 import org.kodein.di.DI
 import org.kodein.di.bindSingleton
 import uk.co.jemos.podam.api.PodamFactoryImpl
+import java.util.stream.IntStream.range
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 internal class DAOFacadeImplTest {
@@ -75,15 +76,18 @@ internal class DAOFacadeImplTest {
             assertThat(expected.message).isNotEmpty
             assertThat(expected.systemCode).isEqualTo("10")
     }
-////
-//    @Test
-//    fun editArticle() {
-//        //GIVEN
-//        val oneArticle=factory.manufacturePojoWithFullData(Article::class.java)
-//            every { service.editArticle(any(),any(),any()) } returns Int
-//        //WHEN
-//        //THEN
-//    }
+    @Test
+    fun editArticle() {
+        //GIVEN
+        val oneArticle=factory.manufacturePojoWithFullData(Article::class.java)
+            every { service.editArticle(any(),any(),any()) } returns 2
+        //WHEN
+        val expected= oneArticle.id?.let { underTest.editArticle(it,oneArticle.title,oneArticle.body) }
+        //THEN
+        if (expected != null) {
+            assertThat(expected.code).isEqualTo("201")
+        }
+    }
 //
 //    @Test
 //    fun deleteArticle() {
