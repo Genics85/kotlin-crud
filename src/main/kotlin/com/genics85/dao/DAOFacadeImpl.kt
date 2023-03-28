@@ -17,7 +17,7 @@ class DAOFacadeImpl : DAOFacade {
         Articles.selectAll().map(::resultRowToArticle).toList()
     }
 
-    override fun article(id: Int): Article? = transaction {
+    override fun getArticle(id: Int): Article? = transaction {
          Articles.select( Articles.id eq id )
             .map(::resultRowToArticle)
             .singleOrNull()
@@ -40,4 +40,5 @@ class DAOFacadeImpl : DAOFacade {
     override fun deleteArticle(id: Int): Boolean {
        return Articles.deleteWhere{Articles.id eq id} > 1
     }
+
 }

@@ -22,4 +22,7 @@ interface ArticleController {
      * this function is to delete specific article from the database
      * **/
     fun editArticle(id:Int,title: String,body: String):APIResponse<Int>
+    /**this function get a particular article from the database with the use of id**/
+
+    fun getArticle(id:Int):APIResponse<Article?>
 }

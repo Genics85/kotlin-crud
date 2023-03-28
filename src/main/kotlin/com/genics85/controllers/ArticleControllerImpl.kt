@@ -85,4 +85,20 @@ class ArticleControllerImpl(override val di: DI) :ArticleController, DIAware {
         }
         return editOne
     }
+
+    /**this function get a particular article from the database with the use of id**/
+    override fun getArticle(id: Int): APIResponse<Article?> {
+        val foundArticle:APIResponse<Article?> = try{
+            val artVal=daoFacade.getArticle(id)
+            if(artVal != null){
+                APIResponse("9","201","Article with the $id found", listOf(artVal))
+            }else{
+                APIResponse("9","200","Article with the $id not found",listOf())
+            }
+        }catch (se:SQLException){
+            log.error("server error occurred")
+            APIResponse("9","500","Server error ocurred, could fetch article",listOf())
+        }
+        return foundArticle
+    }
 }
