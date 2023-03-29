@@ -25,20 +25,20 @@ class DAOFacadeImpl : DAOFacade {
 
     override fun addNewArticle(art: Article): Int = transaction{
         Articles.insert{
-            it[Articles.title]=art.title
-            it[Articles.body]=art.body
+            it[title]=art.title
+            it[body]=art.body
         }.insertedCount
     }
 
-    override fun editArticle(id: Int, body: String, title: String): Int {
-        return Articles.update ({Articles.id eq id}){
+    override fun editArticle(id: Int, body: String, title: String): Int = transaction {
+         Articles.update ({Articles.id eq id}){
             it[Articles.title]=title
             it[Articles.body]=body
         }
     }
 
-    override fun deleteArticle(id: Int): Boolean {
-       return Articles.deleteWhere{Articles.id eq id} > 1
+    override fun deleteArticle(id: Int): Boolean = transaction{
+       Articles.deleteWhere{Articles.id eq id} > 1
     }
 
 }

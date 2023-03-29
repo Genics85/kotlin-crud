@@ -12,8 +12,6 @@ import org.slf4j.LoggerFactory
 private const val BASE_URL:String="/API"
 fun Application.dbRouting() {
 
-    val log = LoggerFactory.getLogger(this::class.java)
-
     val di= DI{
         bindSingleton{DAOFacadeImpl()}
     }
@@ -27,18 +25,19 @@ fun Application.dbRouting() {
             }
             post ("/add"){
                 var news = dbFun.createArticle("Something great","This is not even a new anymore")
-                call.respond(news.toString())
+                call.respond(news.message)
             }
             get("/get"){
                 var articles=dbFun.getArticles()
-                call.respond("successfully got all articles")
+                call.respond(articles.data.first().toString())
             }
             post("/del"){
                 var art=dbFun.deleteArticle(1)
-                call.respond(art.toString())
+                call.respond(art.message)
             }
             post("/edit"){
                 var art=dbFun.editArticle(1,"Changed to this one","Something nice for your pleasure")
+                call.respond(art.message)
             }
         }
     }

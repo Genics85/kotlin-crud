@@ -6,6 +6,7 @@ import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
+import org.jetbrains.exposed.sql.transactions.transaction
 import org.slf4j.LoggerFactory
 
 object DatabaseFactory {
@@ -23,10 +24,13 @@ object DatabaseFactory {
         return HikariDataSource(config)
     }
     fun connect() {
-        log.info("Initialising database")
-        val pool = hikari()
-        Database.connect(pool)
-        SchemaUtils.create(Articles)
+            log.info("Initialising database")
+            val pool = hikari()
+            Database.connect(pool)
+            transaction{
+                SchemaUtils.create(Articles)
+            }
+            log.info("Database connected successfully")
         //runFlyway(pool)
     }
 

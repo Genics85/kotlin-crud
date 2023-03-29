@@ -5,6 +5,6 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Article(
     val id: Int?,
-    val title:String,
-    val body:String
+    var title:String,
+    var body:String
     )
