@@ -28,7 +28,7 @@ object DatabaseFactory {
             val pool = hikari()
             Database.connect(pool)
             transaction{
-                SchemaUtils.create(Articles)
+                SchemaUtils.createMissingTablesAndColumns(Articles)
             }
             log.info("Database connected successfully")
         //runFlyway(pool)

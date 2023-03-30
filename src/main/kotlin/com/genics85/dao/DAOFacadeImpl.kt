@@ -38,7 +38,7 @@ class DAOFacadeImpl : DAOFacade {
     }
 
     override fun deleteArticle(id: Int): Boolean = transaction{
-       Articles.deleteWhere{Articles.id eq id} > 1
+       Articles.deleteWhere{Articles.id eq id} >= 1
     }
 
 }

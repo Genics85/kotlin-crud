@@ -39,6 +39,7 @@ dependencies {
     testImplementation("io.mockk:mockk:1.13.4")
     testImplementation("uk.co.jemos.podam:podam:7.2.11.RELEASE")
     testImplementation("org.assertj:assertj-core:3.24.2")
+    testImplementation("org.junit.platform:junit-platform-runner:1.8.1")
 
 }
 

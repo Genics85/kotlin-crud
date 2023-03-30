@@ -1,6 +1,6 @@
-package com.genics85.dao
+package com.genics85.controllers
 
-import com.genics85.controllers.ArticleControllerImpl
+import com.genics85.dao.DAOFacade
 import com.genics85.models.Article
 import io.ktor.util.reflect.*
 import io.mockk.every
@@ -17,9 +17,9 @@ import uk.co.jemos.podam.api.PodamFactoryImpl
 import java.sql.SQLException
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-internal class ArticleControllerImplTest {
+class ArticleControllerImplTest {
 
-    private lateinit var service:DAOFacade
+    private lateinit var service: DAOFacade
     private lateinit var di: DI
     private lateinit var underTest:ArticleControllerImpl
     private  val factory:PodamFactoryImpl = PodamFactoryImpl()

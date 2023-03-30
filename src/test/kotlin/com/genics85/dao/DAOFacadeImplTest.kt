@@ -1,5 +1,6 @@
 package com.genics85.dao
 
+import com.genics85.database.Articles
 import com.genics85.models.Article
 import io.ktor.util.reflect.*
 import org.assertj.core.api.AssertionsForClassTypes.assertThat
@@ -14,9 +15,8 @@ import uk.co.jemos.podam.api.PodamFactoryImpl
 import kotlin.random.Random
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-internal class DAOFacadeImplTest {
+class DAOFacadeImplTest {
 
-    private val log: Logger = LoggerFactory.getLogger(this::class.java)
     private val factory: PodamFactoryImpl = PodamFactoryImpl()
     private lateinit var underTest:DAOFacadeImpl
     private lateinit var articles: List<Article>
@@ -34,7 +34,7 @@ internal class DAOFacadeImplTest {
     @AfterAll
     fun tearDown() {
         transaction {
-            SchemaUtils.drop()
+            SchemaUtils.drop(Articles)
         }
     }
 
@@ -47,10 +47,28 @@ internal class DAOFacadeImplTest {
         assertThat(expected.first()).instanceOf(Article::class)
         assertThat(expected.isNotEmpty())
     }
-//
-//    @Test
-//    fun getArticle() {
-//    }
+
+    @Test
+    fun getArticle() {
+        //GIVEN
+        val oneArticle = underTest.allArticles()
+        //WHEN
+        val expected = (oneArticle[Random.nextInt(0,oneArticle.size)]).id?.let { underTest.getArticle(it) }
+        //THEN
+        assertThat(expected).instanceOf(Article::class)
+        assertThat(expected).isNotNull
+    }
+
+    @Test
+    fun `can't get article because ID does not exist in database`(){
+        //GIVEN
+        val oneArticle=articles.first()
+        //WHEN
+        val expected= oneArticle.id?.let { underTest.getArticle(it) }
+        //THEN
+        assertThat(expected).isNull()
+
+    }
 
     @Test
     fun addNewArticle() {
@@ -75,8 +93,36 @@ internal class DAOFacadeImplTest {
         //THEN
         assertThat(expected).isGreaterThan(0)
     }
-//
-//    @Test
-//    fun deleteArticle() {
-//    }
+
+    @Test
+    fun `can not update article because ID is not found in database`(){
+        //GIVEN
+        val oneArticle=articles.first()
+        //WHEN
+        val expected = oneArticle.id?.let { underTest.editArticle(it,oneArticle.body,oneArticle.title) }
+        //THEN
+        assertThat(expected).isEqualTo(0)
+    }
+
+    @Test
+    fun deleteArticle() {
+        //GIVEN
+        val oneArticle=underTest.allArticles()
+        //WHEN
+        val expected= oneArticle.first().id?.let { underTest.deleteArticle(it) }
+        //THEN
+        assertThat(expected).isTrue
+        assertThat(expected).instanceOf(Boolean::class)
+    }
+
+    @Test
+    fun `can not delete article because ID is not in database`(){
+        //GIVEN
+        val oneArticle=articles.first()
+        //WHEN
+        val expected= oneArticle.id?.let {underTest.deleteArticle(it)}
+        //THEN
+        assertThat(expected).isFalse
+        assertThat(expected).instanceOf(Boolean::class)
+    }
 }
