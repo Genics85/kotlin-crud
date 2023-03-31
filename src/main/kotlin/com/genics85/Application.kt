@@ -19,7 +19,6 @@ fun main() {
         DatabaseFactory.connect()
         configureDI()
         dbRouting()
-        homeRouting()
     }
         .start(wait = true)
 }

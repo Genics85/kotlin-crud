@@ -59,7 +59,7 @@ class ArticleControllerImpl(override val di: DI) :ArticleController, DIAware {
             if(delVal){
                 APIResponse("20","201","Article deletion success", listOf())
             }else{
-                APIResponse("20","200","Article creation failed",listOf())
+                APIResponse("20","200","No article with id $id exist ",listOf())
             }
         }catch (se:SQLException){
             log.error("Error occurred while deleting article")
